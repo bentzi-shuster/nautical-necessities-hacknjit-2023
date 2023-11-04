@@ -7,6 +7,7 @@
     ]
   },
   "devDependencies": {
+    "@redwoodjs/auth-dbauth-setup": "6.3.2",
     "@redwoodjs/core": "6.3.2"
   },
   "eslintConfig": {
@@ -23,5 +24,6 @@
   "packageManager": "yarn@3.6.3",
   "dependencies": {
     "langchain": "^0.0.180"
+    "@chakra-ui/react": "^2.8.1"
   }
 }
