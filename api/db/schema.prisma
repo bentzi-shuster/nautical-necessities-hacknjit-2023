@@ -13,3 +13,14 @@ model User {
   gamecode    String
   name        String
 }
+
+model Game {
+  id Int @id @default(autoincrement())
+}
+
+model GamePrompts {
+  id       Int    @id @default(autoincrement())
+  prompt   String
+  response String
+  gameId   Int
+}
