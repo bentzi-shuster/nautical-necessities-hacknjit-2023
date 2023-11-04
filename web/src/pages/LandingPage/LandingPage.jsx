@@ -9,7 +9,7 @@ import {useEffect} from "react";
 import {toast, Toaster} from "@redwoodjs/web/toast";
 
 const LandingPage = () => {
-  const { isAuthenticated, signUp } = useAuth()
+  const { isAuthenticated, currentUser, signUp } = useAuth()
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -80,6 +80,7 @@ const LandingPage = () => {
                 </FormControl>
                 <Button colorScheme={'blue'} type={'submit'}>Play</Button>
                 <Button colorScheme={'teal'}>Host Game</Button>
+                <p>{currentUser ? currentUser.name : ''}</p>
               </Flex>
             </Form>
           </VStack>
