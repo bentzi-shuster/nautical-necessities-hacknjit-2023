@@ -7,14 +7,18 @@ import Routes from 'src/Routes'
 import './index.css'
 import {ChakraProvider} from "@chakra-ui/react";
 
+import { AuthProvider, useAuth } from './auth'
+
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodProvider titleTemplate="%PageTitle | %AppTitle">
-      <RedwoodApolloProvider>
-        <ChakraProvider>
-          <Routes />
-        </ChakraProvider>
-      </RedwoodApolloProvider>
+      <AuthProvider>
+        <RedwoodApolloProvider useAuth={useAuth}>
+          <ChakraProvider>
+            <Routes />
+          </ChakraProvider>
+        </RedwoodApolloProvider>
+      </AuthProvider>
     </RedwoodProvider>
   </FatalErrorBoundary>
 )
