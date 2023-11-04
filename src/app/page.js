@@ -14,13 +14,16 @@ export default function Home() {
       </svg>
 
 
-      <div className="artboard artboard-horizontal phone-1 bg-slate-50 mx-auto my-48 min-h-32 rounded-md">
+      <div className="artboard artboard-horizontal phone-1 bg-slate-50 mx-auto my-48 min-h-32 rounded-md flex flex-col px-16 justify-center gap-4">
+<h1 className='text-center text-2xl py-2'> Nautical Necessities </h1>
 
+    <form className="form-control">
+    <input type="text" placeholder="Enter Your Name" className="input input-bordered" name="name" />
+<input type="text" placeholder="Enter Game Code" className="input input-bordered" name="code" />
+    </form>
+    <button className="btn border-solid border-2 border-black">Join Game</button>
 
-      <button className="btn">Join Game</button>
-
-      <a href='/host' className="btn">Host Game</a>
-
+<a href='/host' className="btn border-solid border-2 border-black">Host Game</a>
       </div>
 
 
