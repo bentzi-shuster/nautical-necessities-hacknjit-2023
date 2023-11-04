@@ -1,5 +1,6 @@
+import { getNewRoundQuestion } from 'src/lib/getNewRoundQuestion';
 import { logger } from 'src/lib/logger'
-import { getPrompt } from '../../lib/getPrompt'
+
 /**
  * The handler function is your code that processes http request events.
  * You can use return and throw to send a response or error, respectively.
@@ -17,20 +18,18 @@ import { getPrompt } from '../../lib/getPrompt'
  * function, and execution environment.
  */
 
-
-
-
-
 export const handler = async (event, _context) => {
-  let prompt = (JSON.parse(event.body)).prompt;//{ prompt: "Tell me a joke about bears" };
-  logger.info(prompt);
-  if (!prompt) {
+
+  let previousPromptId = event.queryStringParameters.previousPromptId; //https://localhost:8911/example?previousPromptId=1
+  logger.info(previousPromptId);
+  if (!previousPromptId) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'No prompt provided' }),
+      body: JSON.stringify({ error: 'No previousPromptId or itemGiven provided' }),
     }
   }
-  let response = getPrompt(prompt);
+
+  let response = getNewRoundQuestion(parseInt(previousPromptId))
   return {
     statusCode: 200,
     headers: {
