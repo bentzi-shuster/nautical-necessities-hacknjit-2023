@@ -15,7 +15,7 @@ const Routes = () => {
   return (
     <Router useAuth={useAuth}>
       <Private unauthenticated={'landing'}>
-        <Route path="/game" page={GamePage} name="game" />
+        <Route path="/game" page={NotFoundPage} name="game" />
       </Private>
       <Route path="/" page={LandingPage} name="landing" prerender/>
       <Route notfound page={NotFoundPage} />

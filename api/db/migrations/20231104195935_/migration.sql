@@ -1,8 +1,8 @@
 -- CreateTable
-CREATE TABLE "UserExample" (
+CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "email" TEXT NOT NULL,
-    "name" TEXT
+    "gamecode" TEXT NOT NULL,
+    "name" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -17,6 +17,3 @@ CREATE TABLE "GamePrompts" (
     "response" TEXT NOT NULL,
     "gameId" INTEGER NOT NULL
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "UserExample_email_key" ON "UserExample"("email");

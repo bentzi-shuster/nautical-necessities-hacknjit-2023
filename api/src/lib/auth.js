@@ -26,7 +26,7 @@ export const getCurrentUser = async (session) => {
 
   return await db.user.findUnique({
     where: { id: session.id },
-    select: { id: true },
+    select: { id: true, name: true, gamecode: true },
   })
 }
 
@@ -93,9 +93,6 @@ export const hasRole = (roles) => {
  * @param roles: {@link AllowedRoles} - When checking role membership, these roles grant access.
  *
  * @returns - If the currentUser is authenticated (and assigned one of the given roles)
- *
- * @throws {@link AuthenticationError} - If the currentUser is not authenticated
- * @throws {@link ForbiddenError} If the currentUser is not allowed due to role permissions
  *
  * @see https://github.com/redwoodjs/redwood/tree/main/packages/auth for examples
  */
