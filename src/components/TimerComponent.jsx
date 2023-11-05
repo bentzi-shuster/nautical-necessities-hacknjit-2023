@@ -20,17 +20,21 @@ export default function TimerComponent({timerLength, route, side, gameId}) {
         if (side == 'host') {
             let splitPathName = pathName.split('/host/')[1]
             console.log('testtestestestestes', gameId, splitPathName)
-            supabase.from('Game').update({phase: splitPathName}).eq('id', gameId).select().single().then((test, error) => {
-                console.log(gameId)
-                console.log('update state for clients', test)
-                //router.push(`/game/${test.data.phase}`)
-            });
+            supabase.from('Game').update({phase: splitPathName}).eq('id', gameId).then(r =>
+                (stuff) => console.log(stuff)
+            )
         }
 
         const timerInterval = setInterval(() => {
-            updateTimerPercent(prev => (prev >= 100 ? (side === 'host' ? router.push(`/host/${route}`) : 100) : prev + 0.125));
+            updateTimerPercent(prev => (prev >= 100 ? 100 : prev + 0.125));
         }, (timerLength * 1000) / 800);
     }, [])
+
+    useEffect(() => {
+        if (timerPercent >= 100) {
+            router.push(`/host/${route}`)
+        }
+    }, [timerPercent])
 
     return (
         <>
