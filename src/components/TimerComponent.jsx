@@ -30,12 +30,6 @@ export default function TimerComponent({timerLength, route, side, gameId}) {
         }, (timerLength * 1000) / 800);
     }, [])
 
-    useEffect(() => {
-        if (timerPercent >= 100) {
-            router.push(`/host/${route}`)
-        }
-    }, [timerPercent])
-
     return (
         <>
             <div className="fixed bottom-0 w-full bg-blue-500">
