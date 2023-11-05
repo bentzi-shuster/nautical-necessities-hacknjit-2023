@@ -1,10 +1,9 @@
 import Image from 'next/image'
-import styles from '../components/page.module.css'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers'
 
 import HomePageForm from '@/components/HomePageForm';
-import BackgroundAnimation from "@/components/BackgroundAnimation";
 export default function Home() {
-
   return (
     <>
         <div className="artboard artboard-horizontal phone-1 bg-slate-50 mx-auto my-48 min-h-32 rounded-md flex flex-col px-16 justify-center gap-4">
