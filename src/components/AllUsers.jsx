@@ -69,7 +69,7 @@ export default function AllUsers({gameId, allPlayers}) {
                     {
                         allUsers.map((data, index) => {
                             return (
-                                <PlayerCard greyedOut={true} key={index} name={data.name} width={100} height={100} />
+                                <PlayerCard key={index} name={data.name} width={100} height={100} />
                             )
                         })
                     }</div>
