@@ -40,4 +40,4 @@ Making a real-time game was not something either of us had experience with and w
 Learning Supabase real-time databases was a proud achievement, and how to do a real-time game flow.
 
 
-Try it out at [Here](nautical-necessities-hacknjit-2023.vercel.app)
+Try it out at [Here](https://www.nautical-necessities.co)
