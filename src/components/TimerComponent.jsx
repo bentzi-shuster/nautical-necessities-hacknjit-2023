@@ -17,14 +17,14 @@ export default function TimerComponent({timerLength, route, side, gameId = null}
         if (alreadyRun) return
         updateAlreadyRun(true)
 
-        if (side == 'host') {
+        if (side != 'host') {
             let splitPathName = pathName.split('/host/')[1]
             console.log('testtestestestestes', gameId, splitPathName)
             let {
                 test,
                 error
             } = supabase.from('Game').update({phase: splitPathName}).eq('id', gameId).select().then((test, error) => {
-                console.log('phase update', test, error)
+                router.push(`/game/${test.data[0].phase}`)
             });
 
         }
