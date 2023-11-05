@@ -10,6 +10,14 @@ const TEMPLATE = `You need to come up with a question to direct the user to deci
 
 export async function newPrompt(chatHistoryArr, answer) {
 
+    if(!chatHistoryArr||chatHistoryArr.length==0){
+    return JSON.stringify({
+        chatHistory: [],
+        itemGiven: "",
+        result: "If you were stranded on a deserted island, what would you bring?"
+    })
+    }
+
     const model = new ChatOpenAI({
         temperature: 0.7,
         openAIApiKey: process.env.OPENAI_API_KEY,

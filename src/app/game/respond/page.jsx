@@ -44,10 +44,7 @@ let {data: PromptData} = await supabase
 
 let promptArray = PromptData.map((data) => data.prompt)
 
-let data = await newPrompt([
-    "if you were stranded on a desert island, what would you bring?",
-    ...promptArray
-],"A boat");
+let data = await newPrompt([...promptArray],"");
 data=JSON.parse(data);
 
 

@@ -4,9 +4,7 @@ import {cookies} from "next/headers";
 import { savePlayerResponseToRound } from "./action";
 export default async function Page() {
   const supabase = createServerComponentClient({ cookies });
-let data = await newPrompt([
-    "if you were stranded on a desert island, what would you bring?"
-],"A boat");
+let data = await newPrompt([],"");
 data=JSON.parse(data);
 let userId = cookies().get('userId').value
 
