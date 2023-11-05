@@ -6,24 +6,24 @@ import {setInterval} from "worker-timers";
 
 export default function TimerComponent({timerLength, route, side, gameId = null}) {
     let [timerPercent, updateTimerPercent] = useState(0);
+    let [alreadyRun, updateAlreadyRun] = useState(false);
 
     const supabase = createClientComponentClient();
 
-    let alreadyRun = false;
     const router = useRouter();
     let pathName = usePathname()
 
     useEffect(() => {
         if (alreadyRun) return
-        alreadyRun = true
+        updateAlreadyRun(true)
 
         if (side == 'host') {
-            pathName = pathName.split('/host/')[1]
-            console.log(gameId, pathName)
+            let splitPathName = pathName.split('/host/')[1]
+            console.log('testtestestestestes', gameId, splitPathName)
             let {
                 test,
                 error
-            } = supabase.from('Game').update({phase: pathName}).eq('id', gameId).select().then((test, error) => {
+            } = supabase.from('Game').update({phase: splitPathName}).eq('id', gameId).select().then((test, error) => {
                 console.log('phase update', test, error)
             });
 
