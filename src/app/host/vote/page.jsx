@@ -34,7 +34,7 @@ export default async function Host() {
     return (
         <>
             <VoteComponent gameId={gameId} allData={allPlayers} side={'host'}></VoteComponent>
-            <TimerComponent timerLength={6} gameId={gameId} route={'respond'} side={'host'}/>
+            <TimerComponent timerLength={30} gameId={gameId} route={'respond'} side={'host'}/>
         </>
     )
 }

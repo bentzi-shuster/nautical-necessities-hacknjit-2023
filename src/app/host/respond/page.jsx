@@ -20,7 +20,7 @@ export default async function Host() {
     return (
         <>
             <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
-            <TimerComponent timerLength={6} gameId={gameId} route={'vote'} side={'host'}/>
+            <TimerComponent timerLength={30} gameId={gameId} route={'vote'} side={'host'}/>
         </>
     )
 }

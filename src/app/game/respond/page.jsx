@@ -11,7 +11,7 @@ import { savePlayerResponseToRound } from "../play/action";
 import { newPrompt } from "@/lib/newPrompt/newPrompt";
 
 export default async function GameRespond() {
-    let respondTime = 6;
+    let respondTime = 30;
 
     // const supabase = createServerComponentClient({cookies});
 
@@ -82,7 +82,7 @@ const inserted = await supabase
                         <button type={'submit'}
                                 className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}>Send
                         </button>
-                    </div>  
+                    </div>
                 </form>
             </div>
             <TimerComponent timerLength={respondTime} side='game' route={`vote`}/>

@@ -9,8 +9,8 @@ import RedirectListener from "@/components/RedirectListener";
 import {setInterval} from "worker-timers";
 
 export default function VoteComponent({gameId, allData, side}) {
-    const voteTime = 6;
-console.log(allData);
+    const voteTime = 30;
+    console.log(allData);
     const supabase = createClientComponentClient()
     const router = useRouter();
 
@@ -20,7 +20,7 @@ console.log(allData);
         .then((data) => updateGameCode(data?.data?.game_code))
 
     useEffect(() => {
-        if (side != 'host') {
+        if (side == 'host') {
             let ydir = 1;
             let buffer = 100;
             let yHeight = -buffer;

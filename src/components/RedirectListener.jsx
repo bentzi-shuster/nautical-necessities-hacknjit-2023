@@ -39,6 +39,7 @@ export default function RedirectListener({gameId}) {
 
         async function periodicCheck() {
             let res = await supabase.from('Game').select('phase').eq('id', gameId).limit(1).single();
+            console.log('res lol' + res)
         }
 
         setInterval(async () => {
