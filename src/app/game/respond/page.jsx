@@ -4,8 +4,12 @@ import HomePageForm from "@/components/HomePageForm";
 import {createServerComponentClient} from '@supabase/auth-helpers-nextjs';
 import {cookies} from 'next/headers'
 import MessageBubble from "@/components/MessageBubble";
+import TimerComponent from "@/components/TimerComponent";
+import {savePlayerResponse} from "@/app/game/respond/action";
 
 export default async function GameRespond() {
+    let respondTime = 6;
+
     const supabase = createServerComponentClient({cookies});
 
     let userId = cookies().get('userId').value
@@ -28,9 +32,9 @@ export default async function GameRespond() {
                 className="artboard artboard-horizontal phone-1 bg-slate-50 mx-auto my-48 min-h-32 rounded-md flex flex-col px-16 justify-center gap-2">
                 <MessageBubble user={'The super smart AI'} message={'test'}></MessageBubble>
                 <hr/>
-                <form>
+                <form action={savePlayerResponse}>
                     <div className={"flex gap-1"}>
-                        <input autoFocus
+                        <input autoFocus name={'userResponse'}
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                id="userinput" type="text" placeholder="Your response..."></input>
                         <button type={'submit'}
@@ -39,6 +43,7 @@ export default async function GameRespond() {
                     </div>  
                 </form>
             </div>
+            <TimerComponent timerLength={respondTime} route={`/game/vote`}/>
         </>
     )
 }

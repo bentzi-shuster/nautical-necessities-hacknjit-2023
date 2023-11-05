@@ -16,7 +16,7 @@ export default async function Host() {
 
     return (
         <>
-            <VoteComponent gameId={gameId} allData={allPlayers}></VoteComponent>
+            <VoteComponent gameId={gameId} allData={allPlayers} side={'host'}></VoteComponent>
         </>
     )
 }

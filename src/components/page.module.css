@@ -1,45 +1,52 @@
 .path {
-  transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
 }
-.path1{
-  animation: path0 5s linear infinite alternate;
+
+.path1 {
+    animation: path0 5s ease-in-out infinite alternate;
 }
-.path2{
-  animation:path1 5s linear infinite alternate;
+
+.path2 {
+    animation: path1 5s ease-in-out infinite alternate;
 }
-.path3{
-  animation: path2 5s linear infinite alternate;
+
+.path3 {
+    animation: path2 5s ease-in-out infinite alternate;
 }
+
 .backgroundcustom {
-  background-color: #EFEFEF;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  top: 0;
-  left: 0;
+    background-color: #EFEFEF;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
 }
+
 @keyframes path0 {
-  0% {
-    transform: rotate(-10deg);
-  }
-  100% {
-    transform: rotate(10deg);
-  }
+    0% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(10deg);
+    }
 }
+
 @keyframes path1 {
-  0% {
-    transform: rotate(-20deg);
-  }
-  100% {
-    transform: rotate(20deg);
-  }
+    0% {
+        transform: rotate(-20deg);
+    }
+    100% {
+        transform: rotate(20deg);
+    }
 }
+
 @keyframes path2 {
-  0% {
-    transform: rotate(40deg);
-  }
-  100% {
-    transform: rotate(-40deg);
-  }
+    0% {
+        transform: rotate(40deg);
+    }
+    100% {
+        transform: rotate(-40deg);
+    }
 }

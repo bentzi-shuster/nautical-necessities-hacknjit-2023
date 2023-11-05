@@ -6,7 +6,7 @@ import MessageBubble from "@/components/MessageBubble";
 import {useRouter} from "next/navigation";
 import TimerComponent from "@/components/TimerComponent";
 
-export default function VoteComponent({gameId, allData}) {
+export default function VoteComponent({gameId, allData, side}) {
     const voteTime = 6;
 
     const supabase = createClientComponentClient()
@@ -18,18 +18,19 @@ export default function VoteComponent({gameId, allData}) {
         .then((data) => updateGameCode(data.data.game_code))
 
     useEffect(() => {
-        let ydir = 1;
-        let buffer = 100;
-        let yHeight = -buffer;
-        setInterval(() => {
-            if (yHeight > window.outerHeight + buffer || yHeight < 0 - buffer) {
-                ydir *= -1
-            }
-            yHeight += ydir
-            window.scrollTo(0, yHeight)
-        }, 25)
+        if (side != 'host') {
+            let ydir = 1;
+            let buffer = 100;
+            let yHeight = -buffer;
+            setInterval(() => {
+                if (yHeight > window.outerHeight + buffer || yHeight < 0 - buffer) {
+                    ydir *= -1
+                }
+                yHeight += ydir
+                window.scrollTo(0, yHeight)
+            }, 25)
+        }
     }, [])
-
 
     return (
         <>
@@ -50,7 +51,7 @@ export default function VoteComponent({gameId, allData}) {
                     </div>
                 </div>
             </div>
-            <TimerComponent timerLength={voteTime} route={'/host/waiting'}/>
+            <TimerComponent timerLength={voteTime} route={`/${side}/respond`}/>
         </>
     )
 }
