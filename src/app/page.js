@@ -2,7 +2,6 @@ import Image from 'next/image'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers'
 import { generateGame } from "@/app/host/generateGame";
-
 import HomePageForm from '@/components/HomePageForm';
 export default function Home() {
   return (
