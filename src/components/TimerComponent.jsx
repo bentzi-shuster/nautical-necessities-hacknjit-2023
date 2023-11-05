@@ -22,7 +22,7 @@ export default function TimerComponent({timerLength, route, side, gameId}) {
             console.log('testtestestestestes', gameId, splitPathName)
             supabase.from('Game').update({phase: splitPathName}).eq('id', gameId).select().single().then((test, error) => {
                 console.log(gameId)
-                console.log('timer redirect to...', test)
+                console.log('update state for clients', test)
                 //router.push(`/game/${test.data.phase}`)
             });
         }
