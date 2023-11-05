@@ -1,29 +1,35 @@
-
+'use server'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers'
-const cookieStore = cookies()
+
 const supabase = createServerComponentClient({ cookies})
       
 export async function doStuff(formData) {
-            'use server'
+    let user
+            
            let name =  formData.get("name")
              let code =  formData.get("code")
-
-             let { gamedata, gameerror } = await supabase
+             let game = await supabase
              .from('Game')
              .select('id,game_code')
-             .eq('game_code', code)
-
-           if (gameerror) {
-                  console.log(gameerror)
+                .eq('game_code', code)  
+           if (game.data[0]?.id == null) {
              }
              else {
-             let { userdata, usererror } = await supabase
+              user = await supabase
              .from('User')
              .insert([
                { name: name },
              ])
-             .select("id,name")
+             .select("name,id")
+             cookies().set('userId', user.data[0]?.id)
+                 let playergames=   await supabase
+             .from('PlayerGames')
+             .insert([
+               { userId: user.data[0]?.id, gameId: game.data[0]?.id },
+             ])
+
             }
-            console.log(gamedata,gameerror);
+
+            
           }
