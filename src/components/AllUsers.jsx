@@ -1,14 +1,29 @@
 "use client"
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import {useState} from "react";
+import PlayerCard from "@/components/PlayerCard";
 
 export default function AllUsers({gameId, allPlayers}) {
     //const cookieStore = cookies()
     const supabase = createClientComponentClient()
 
     let [allUsers, updateAllUsers] = useState(allPlayers);
+    let [gameCode, updateGameCode] = useState('~~~~~');
 
-    const PlayerGames = supabase.channel('custom-all-channel')
+    supabase.from('Game').select('game_code').eq('id', gameId).limit(1).single()
+        .then((data) => updateGameCode(data.data.game_code))
+
+    const test = supabase.channel('custom-insert-channel')
+        .on(
+            'postgres_changes',
+            { event: 'INSERT', schema: 'public', table: 'PlayerGames' },
+            (payload) => {
+                console.log('Change received!', payload)
+            }
+        )
+        .subscribe()
+
+    const PlayerGames = supabase.channel('custom-insert-channel')
         .on(
             'postgres_changes',
             {event: 'INSERT', schema: 'public', table: 'PlayerGames', filter: `gameId=eq.${gameId}`},
@@ -19,7 +34,6 @@ export default function AllUsers({gameId, allPlayers}) {
                     .eq('id', payload.new.userId)
                     .limit(1)
                     .single()
-                console.log('testinguseses ' + JSON.stringify(player))
                 let tempAllPlayers = [...allUsers]
                 tempAllPlayers.push(player)
                 updateAllUsers(tempAllPlayers)
@@ -27,7 +41,7 @@ export default function AllUsers({gameId, allPlayers}) {
         )
         .subscribe()
 
-    const PlayerGames2 = supabase.channel('custom-all-channel')
+    const PlayerGames2 = supabase.channel('custom-delete-channel')
         .on(
             'postgres_changes',
             { event: 'DELETE', schema: 'public', table: 'PlayerGames', filter: `gameId=eq.${gameId}` },
@@ -51,11 +65,11 @@ export default function AllUsers({gameId, allPlayers}) {
             <div className="stat">
                 <div>
                     <div className="stat-desc text-3xl">Game Code</div>
-                    <div className="stat-value">{gameId}</div>
+                    <div className="stat-value">{gameCode}</div>
                     {
                         allUsers.map((data, index) => {
                             return (
-                                <p key={index}>{data.name}</p>
+                                <PlayerCard key={index} name={data.name} width={100} height={100} />
                             )
                         })
                     }
