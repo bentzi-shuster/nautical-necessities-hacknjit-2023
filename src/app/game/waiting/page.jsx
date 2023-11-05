@@ -1,9 +1,6 @@
-import styles from "@/components/page.module.css";
-import BackgroundAnimation from "@/components/BackgroundAnimation";
-import HomePageForm from "@/components/HomePageForm";
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers'
-
+import { updatePhaseToResponding } from "../vote/action";
 export default async function GameWaiting() {
     const supabase = createServerComponentClient({ cookies });
 
@@ -15,7 +12,7 @@ export default async function GameWaiting() {
         .single()
     let { data: gameData } = await supabase
         .from('Game')
-        .select('game_code')
+        .select('game_code,id')
         .eq('id', playerGamesData.gameId)
         .single()
 
@@ -39,10 +36,16 @@ export default async function GameWaiting() {
                 <p>Waiting for the game to begin...</p>
 
 
-                {firstPlayer.userId == userId && (
-                    <button className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}>Start Game</button>
-                    
-                    )}
+                {firstPlayer.userId == userId && (<>
+                    {/* <button className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}>Start Game</button> */}
+                    <form action={updatePhaseToResponding}> 
+                        <input type="hidden" name="gameId" value={gameData.id}></input>
+                        <button type="submit" className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}>Start Game</button>
+                    </form>
+
+                </>
+                )}
+
             </div>
         </>
     )

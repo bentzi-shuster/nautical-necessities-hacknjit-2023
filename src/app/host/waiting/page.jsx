@@ -6,7 +6,7 @@ export default async function Host() {
     //const cookieStore = cookies()
     const supabase = createServerComponentClient({cookies})
 
-    let gameId = cookies().get('gameId').value;
+    let gameId = cookies().get('gameId')?.value;
 
     let {data: allPlayers, error} = await supabase
         .from('PlayerGames')
