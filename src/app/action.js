@@ -10,6 +10,7 @@ export async function doStuff(formData) {
 
   let name = formData.get("name");
   let code = formData.get("code");
+  code=code.toUpperCase();
   let game = await supabase
     .from("Game")
     .select("id,game_code")
