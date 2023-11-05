@@ -1,5 +1,5 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers'
+import {createServerComponentClient} from '@supabase/auth-helpers-nextjs';
+import {cookies} from 'next/headers'
 import AllUsers from "@/components/AllUsers";
 
 export default async function Host() {
@@ -27,7 +27,7 @@ export default async function Host() {
 
     return (
         <>
-           <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
+            <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
         </>
     )
 }
