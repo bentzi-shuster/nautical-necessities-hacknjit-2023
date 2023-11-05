@@ -51,9 +51,8 @@ export default function AllUsers({gameId, allPlayers}) {
                     .select('id, name')
                     .eq('id', payload.new.userId)
                     .limit(1)
-                    .single()
                 let tempAllPlayers = [...allUsers]
-                let index = tempAllPlayers.indexOf(player)
+                let index = tempAllPlayers.indexOf(player[0])
                 tempAllPlayers.splice(index, 1)
                 updateAllUsers(tempAllPlayers)
             }
@@ -70,7 +69,7 @@ export default function AllUsers({gameId, allPlayers}) {
                     {
                         allUsers.map((data, index) => {
                             return (
-                                <PlayerCard key={index} name={data.name} width={100} height={100} />
+                                <PlayerCard greyedOut={true} key={index} name={data.name} width={100} height={100} />
                             )
                         })
                     }</div>
