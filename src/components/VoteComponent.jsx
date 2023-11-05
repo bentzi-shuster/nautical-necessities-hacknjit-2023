@@ -6,6 +6,7 @@ import MessageBubble from "@/components/MessageBubble";
 import {useRouter} from "next/navigation";
 import TimerComponent from "@/components/TimerComponent";
 import RedirectListener from "@/components/RedirectListener";
+import {setInterval} from "worker-timers";
 
 export default function VoteComponent({gameId, allData, side}) {
     const voteTime = 6;
@@ -33,6 +34,17 @@ export default function VoteComponent({gameId, allData, side}) {
         }
     }, [])
 
+    const handleVote = (data) => {
+        data.target.style.backgroundColor = 'grey'
+        console.log('vote lol')
+        let voteButtons = document.getElementsByClassName('voteButton')
+        for (let item in voteButtons) {
+            if (parseInt(item)) {
+                voteButtons[item].remove()
+            }
+        }
+    }
+
     return (
         <>
             <div className="stat">
@@ -45,6 +57,10 @@ export default function VoteComponent({gameId, allData, side}) {
                                 return (
                                     <div key={index} className={'bg-white/75 rounded-lg'}>
                                         <MessageBubble user={data.name} message={'test'}></MessageBubble>
+                                        {side == 'game' ? (
+                                            <button onClick={handleVote}
+                                                    className={'voteButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}>Vote</button>
+                                        ) : ''}
                                     </div>
                                 )
                             })

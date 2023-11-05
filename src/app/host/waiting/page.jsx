@@ -1,5 +1,5 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers'
+import {createServerComponentClient} from '@supabase/auth-helpers-nextjs';
+import {cookies} from 'next/headers'
 import AllUsers from "@/components/AllUsers";
 
 export default async function Host() {
@@ -13,21 +13,11 @@ export default async function Host() {
         .select('User (id, name)')
         .eq('gameId', gameId)
 
-    allPlayers = allPlayers.map((data) => data.User)
-
-    const PlayerGames = await supabase.channel('custom-all-channel')
-        .on(
-            'postgres_changes',
-            {event: 'INSERT', schema: 'public', table: 'PlayerGames', filter: `gameId=eq.${gameId}`},
-            (payload) => {
-                console.log('new changes ' + payload.new)
-            }
-        )
-        .subscribe()
+    allPlayers = allPlayers?.map((data) => data.User)
 
     return (
         <>
-           <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
+            <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
         </>
     )
 }
