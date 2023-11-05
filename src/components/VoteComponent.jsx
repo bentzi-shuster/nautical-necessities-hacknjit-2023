@@ -10,7 +10,7 @@ import {setInterval} from "worker-timers";
 
 export default function VoteComponent({gameId, allData, side}) {
     const voteTime = 6;
-
+console.log(allData);
     const supabase = createClientComponentClient()
     const router = useRouter();
 
@@ -56,7 +56,7 @@ export default function VoteComponent({gameId, allData, side}) {
                             allData?.map((data, index) => {
                                 return (
                                     <div key={index} className={'bg-white/75 rounded-lg'}>
-                                        <MessageBubble user={data.name} message={'test'}></MessageBubble>
+                                        <MessageBubble user={data.name} message={data.response}></MessageBubble>
                                         {side == 'game' ? (
                                             <button onClick={handleVote}
                                                     className={'voteButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}>Vote</button>
