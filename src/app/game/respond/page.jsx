@@ -28,20 +28,31 @@ export default async function GameRespond() {
     //     .eq('id', playerGamesData.gameId)
     //     .single()
     // console.log(gameData)
-
+    
     const supabase = createServerComponentClient({ cookies });
-let data = await newPrompt([
-    "if you were stranded on a desert island, what would you bring?"
-],"A boat");
-data=JSON.parse(data);
-let userId = cookies().get('userId').value
-
-
+    let userId = cookies().get('userId').value
 let {data: playerGamesData} = await supabase
 .from('PlayerGames')
 .select('gameId')
 .eq('userId', userId)
 .single()
+
+let {data: PromptData} = await supabase
+.from('GamePrompt')
+.select('prompt')
+.eq('gameId', playerGamesData.gameId)
+
+let promptArray = PromptData.map((data) => data.prompt)
+
+let data = await newPrompt([
+    "if you were stranded on a desert island, what would you bring?",
+    ...promptArray
+],"A boat");
+data=JSON.parse(data);
+
+
+
+
 // let {data: gameData} = await supabase
 // .from('Game')
 // .select('game_code')
