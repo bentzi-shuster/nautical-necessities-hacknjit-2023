@@ -1,6 +1,7 @@
 import {createServerComponentClient} from '@supabase/auth-helpers-nextjs';
 import {cookies} from 'next/headers'
 import AllUsers from "@/components/AllUsers";
+import GameStartListener from "@/components/GameStartListener";
 
 export default async function Host() {
     //const cookieStore = cookies()
@@ -27,6 +28,7 @@ export default async function Host() {
 
     return (
         <>
+            <GameStartListener gameId={gameId}/>
             <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
         </>
     )

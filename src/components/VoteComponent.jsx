@@ -17,7 +17,7 @@ console.log(allData);
     let [gameCode, updateGameCode] = useState('~~~~~');
 
     supabase.from('Game').select('game_code').eq('id', gameId).limit(1).single()
-        .then((data) => updateGameCode(data.data.game_code))
+        .then((data) => updateGameCode(data?.data?.game_code))
 
     useEffect(() => {
         if (side != 'host') {
@@ -57,10 +57,6 @@ console.log(allData);
                                 return (
                                     <div key={index} className={'bg-white/75 rounded-lg'}>
                                         <MessageBubble user={data.name} message={data.response}></MessageBubble>
-                                        {side == 'game' ? (
-                                            <button onClick={handleVote}
-                                                    className={'voteButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}>Vote</button>
-                                        ) : ''}
                                     </div>
                                 )
                             })

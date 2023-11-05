@@ -39,7 +39,6 @@ export default async function Host() {
             }
         )
         .subscribe()
-
     return (
         <>
             <VoteComponent gameId={gameId} allData={allPlayers} side={'game'}></VoteComponent>
