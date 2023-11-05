@@ -7,7 +7,7 @@ import { cookies } from 'next/headers'
 export default async function GameRespond() {
     const supabase = createServerComponentClient({ cookies });
 
-    let userId = 57;
+    let userId =  cookies().get('userId').value
 
     let { data: playerGamesData } = await supabase
         .from('PlayerGames')
