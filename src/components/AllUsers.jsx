@@ -1,6 +1,7 @@
 "use client"
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import {useState} from "react";
+import PlayerCard from './PlayerCard';
 
 export default function AllUsers({gameId, allPlayers}) {
     //const cookieStore = cookies()
@@ -52,13 +53,14 @@ export default function AllUsers({gameId, allPlayers}) {
                 <div>
                     <div className="stat-desc text-3xl">Game Code</div>
                     <div className="stat-value">{gameId}</div>
+                    <div className="flex flex-row flex-wrap justify-center gap-4">
                     {
                         allUsers.map((data, index) => {
                             return (
-                                <p key={index}>{data.name}</p>
+                                <PlayerCard key={index} name={data.name} width={100} height={100}>{data.name}</PlayerCard>
                             )
                         })
-                    }
+                    }</div>
                 </div>
             </div>
         </>
