@@ -1,6 +1,7 @@
 import VoteComponent from "@/components/VoteComponent";
 import {cookies} from 'next/headers'
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
+import TimerComponent from "@/components/TimerComponent";
 
 export default async function Host() {
     const supabase = createServerComponentClient({cookies})
@@ -17,6 +18,7 @@ export default async function Host() {
     return (
         <>
             <VoteComponent gameId={gameId} allData={allPlayers} side={'host'}></VoteComponent>
+            <TimerComponent timerLength={6} gameId={gameId} route={'respond'} side={'host'}/>
         </>
     )
 }

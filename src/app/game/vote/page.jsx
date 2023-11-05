@@ -17,16 +17,6 @@ export default async function Host() {
 
     allPlayers = allPlayers.map((data) => data.User)
 
-    const PlayerGames = await supabase.channel('custom-all-channel')
-        .on(
-            'postgres_changes',
-            {event: 'INSERT', schema: 'public', table: 'PlayerGames', filter: `gameId=eq.${gameId}`},
-            (payload) => {
-                console.log('new changes ' + payload.new)
-            }
-        )
-        .subscribe()
-
     return (
         <>
             <VoteComponent gameId={gameId} allData={allPlayers} side={'game'}></VoteComponent>

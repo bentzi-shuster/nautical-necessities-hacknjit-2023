@@ -15,7 +15,7 @@ export async function updatePhaseToResponding(formData) {
     let updated = await supabase
         .from('Game')
         .update({
-            phase: "responding"
+            phase: "respond"
         })
         .eq('id', gameId)
 }
