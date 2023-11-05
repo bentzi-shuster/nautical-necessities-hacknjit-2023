@@ -18,7 +18,7 @@ export default async function Host() {
     const PlayerGames = await supabase.channel('custom-all-channel')
         .on(
             'postgres_changes',
-            {event: 'INSERT', schema: 'public', table: 'PlayerGames', filter: `gameId=eq.${gameId}`},
+            {event: 'UPDATE', schema: 'public', table: 'PlayerGames', filter: `gameId=eq.${gameId}`},
             (payload) => {
                 console.log('new changes ' + payload.new)
             }
