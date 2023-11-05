@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers'
+
 
 import HomePageForm from '@/components/HomePageForm';
 export default function Home() {
-
   return (
     <>
  <svg className={styles.backgroundcustom} id="demo" viewBox="0 0 100 100" preserveAspectRatio="none">
