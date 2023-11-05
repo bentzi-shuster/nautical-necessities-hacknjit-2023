@@ -5,6 +5,7 @@ import PlayerCard from "@/components/PlayerCard";
 import MessageBubble from "@/components/MessageBubble";
 import {useRouter} from "next/navigation";
 import TimerComponent from "@/components/TimerComponent";
+import RedirectListener from "@/components/RedirectListener";
 
 export default function VoteComponent({gameId, allData, side}) {
     const voteTime = 6;
@@ -51,7 +52,8 @@ export default function VoteComponent({gameId, allData, side}) {
                     </div>
                 </div>
             </div>
-            <TimerComponent timerLength={voteTime} route={`/${side}/respond`}/>
+            <TimerComponent timerLength={voteTime} side={side} route={`respond`} gameId={gameId}/>
+            <RedirectListener gameId={gameId}/>
         </>
     )
 }

@@ -1,19 +1,36 @@
 "use client"
 import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
+import {useRouter, usePathname} from "next/navigation";
+import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
+import {setInterval} from "worker-timers";
 
-export default function TimerComponent({timerLength, route}) {
+export default function TimerComponent({timerLength, route, side, gameId = null}) {
     let [timerPercent, updateTimerPercent] = useState(0);
+
+    const supabase = createClientComponentClient();
 
     let alreadyRun = false;
     const router = useRouter();
+    let pathName = usePathname()
 
     useEffect(() => {
         if (alreadyRun) return
         alreadyRun = true
 
+        if (side == 'host') {
+            pathName = pathName.split('/host/')[1]
+            console.log(gameId, pathName)
+            let {
+                test,
+                error
+            } = supabase.from('Game').update({phase: pathName}).eq('id', gameId).select().then((test, error) => {
+                console.log(test, error)
+            });
+
+        }
+
         const timerInterval = setInterval(() => {
-            updateTimerPercent(prev => (prev >= 100 ? router.push(route) : prev + 0.125));
+            updateTimerPercent(prev => (prev >= 100 ? (side === 'host' ? router.push(`/host/${route}`) : 100) : prev + 0.125));
         }, (timerLength * 1000) / 800);
     }, [])
 

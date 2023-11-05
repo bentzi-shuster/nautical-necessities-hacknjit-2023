@@ -2,6 +2,7 @@ import {createServerComponentClient} from '@supabase/auth-helpers-nextjs';
 import {cookies} from 'next/headers'
 import AllUsers from "@/components/AllUsers";
 import VoteComponent from "@/components/VoteComponent";
+import RedirectListener from "@/components/RedirectListener";
 
 export default async function Host() {
     //const cookieStore = cookies()
@@ -29,6 +30,7 @@ export default async function Host() {
     return (
         <>
             <VoteComponent gameId={gameId} allData={allPlayers} side={'game'}></VoteComponent>
+            <RedirectListener gameId={gameId}/>
         </>
     )
 }
