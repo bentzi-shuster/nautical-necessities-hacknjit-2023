@@ -9,10 +9,9 @@ export default async function Host() {
   .from('Game')
   .insert([
     { game_code: (Array.from(Array(5), () => Math.floor(Math.random() * 36).toString(36)).join('')).toUpperCase() },
-  ])
+  ])//https://stackoverflow.com/questions/10726909/random-alpha-numeric-string-in-javascript
   .select(
   ).limit(1)
-console.log(data);
 return (
 <>
 
