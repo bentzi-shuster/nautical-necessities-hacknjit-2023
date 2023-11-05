@@ -1,7 +1,8 @@
 'use server'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers'
-
+ 
+import { redirect } from 'next/navigation'
 const supabase = createServerComponentClient({ cookies})
       
 export async function doStuff(formData) {
@@ -28,8 +29,7 @@ export async function doStuff(formData) {
              .insert([
                { userId: user.data[0]?.id, gameId: game.data[0]?.id },
              ])
-
             }
-
+            redirect(`/game/waiting`)
             
           }

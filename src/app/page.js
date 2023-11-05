@@ -6,24 +6,6 @@ import { cookies } from 'next/headers'
 
 import HomePageForm from '@/components/HomePageForm';
 export default function Home() {
-      const supabase = createServerComponentClient({ cookies})
-      const PlayerGames = supabase.channel('custom-insert-channel')
-      .on(
-        'postgres_changes',
-        { event: 'INSERT', schema: 'public',     table: 'PlayerGames' },
-        (payload) => {
-          console.log('Change received!', payload)
-          let userId = payload?.new?.userId
-          let gameId = payload?.new?.gameId
-          let cookieStore = cookies()
-          let sessoinUserID=cookieStore.get("userId")
-          console.log(sessoinUserID.value);
-          if (sessoinUserID.value===userId){
-            console.log("TEST TEST PASS");
-          }
-        }
-      )
-      .subscribe()
   return (
     <>
  <svg className={styles.backgroundcustom} id="demo" viewBox="0 0 100 100" preserveAspectRatio="none">
