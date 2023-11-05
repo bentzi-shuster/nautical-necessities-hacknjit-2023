@@ -24,7 +24,7 @@ export default function TimerComponent({timerLength, route, side, gameId = null}
                 test,
                 error
             } = supabase.from('Game').update({phase: pathName}).eq('id', gameId).select().then((test, error) => {
-                console.log(test, error)
+                console.log('phase update', test, error)
             });
 
         }

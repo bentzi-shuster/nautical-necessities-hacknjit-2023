@@ -9,7 +9,7 @@ import RedirectListener from "@/components/RedirectListener";
 import {setInterval} from "worker-timers";
 
 export default function VoteComponent({gameId, allData, side}) {
-    const voteTime = 6;
+    const voteTime = 30;
 console.log(allData);
     const supabase = createClientComponentClient()
     const router = useRouter();
