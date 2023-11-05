@@ -16,5 +16,5 @@ const temp = await supabase
   .eq("id", questionId)
   .select()
 
-    
+    console.log("response: ", response);
 }

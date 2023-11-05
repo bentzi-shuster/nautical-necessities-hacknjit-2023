@@ -14,7 +14,17 @@ export default async function Host() {
         .select('User (id, name)')
         .eq('gameId', gameId)
 
-    allPlayers = allPlayers?.map((data) => data.User)
+    allPlayers = allPlayers.map((data) => data.User)
+
+    const PlayerGames = await supabase.channel('custom-all-channel')
+        .on(
+            'postgres_changes',
+            {event: 'UPDATE', schema: 'public', table: 'PlayerGames', filter: `gameId=eq.${gameId}`},
+            (payload) => {
+                console.log('new changes ' + payload.new)
+            }
+        )
+        .subscribe()
 
     return (
         <>

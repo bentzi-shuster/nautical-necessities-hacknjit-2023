@@ -7,33 +7,63 @@ import MessageBubble from "@/components/MessageBubble";
 import TimerComponent from "@/components/TimerComponent";
 import {savePlayerResponse} from "@/app/game/respond/action";
 import RedirectListener from "@/components/RedirectListener";
+import { savePlayerResponseToRound } from "../play/action";
+import { newPrompt } from "@/lib/newPrompt/newPrompt";
 
 export default async function GameRespond() {
     let respondTime = 6;
 
-    const supabase = createServerComponentClient({cookies});
+    // const supabase = createServerComponentClient({cookies});
 
-    let userId = cookies().get('userId').value
+    // let userId = cookies().get('userId').value
 
-    let {data: playerGamesData} = await supabase
-        .from('PlayerGames')
-        .select('gameId')
-        .eq('userId', userId)
-        .single()
-    let {data: gameData} = await supabase
-        .from('Game')
-        .select('game_code')
-        .eq('id', playerGamesData.gameId)
-        .single()
-    console.log(gameData)
+    // let {data: playerGamesData} = await supabase
+    //     .from('PlayerGames')
+    //     .select('gameId')
+    //     .eq('userId', userId)
+    //     .single()
+    // let {data: gameData} = await supabase
+    //     .from('Game')
+    //     .select('game_code')
+    //     .eq('id', playerGamesData.gameId)
+    //     .single()
+    // console.log(gameData)
+
+    const supabase = createServerComponentClient({ cookies });
+let data = await newPrompt([
+    "if you were stranded on a desert island, what would you bring?"
+],"A boat");
+data=JSON.parse(data);
+let userId = cookies().get('userId').value
+
+
+let {data: playerGamesData} = await supabase
+.from('PlayerGames')
+.select('gameId')
+.eq('userId', userId)
+.single()
+// let {data: gameData} = await supabase
+// .from('Game')
+// .select('game_code')
+// .eq('id', playerGamesData.gameId)
+// .single()
+const inserted = await supabase
+  .from('GamePrompt')
+  .insert([
+    { prompt: data.result,gameId: playerGamesData.gameId, responderId:userId},
+  ])
+  .select()
+
+
 
     return (
         <>
             <div
                 className="artboard artboard-horizontal phone-1 bg-slate-50 mx-auto my-48 min-h-32 rounded-md flex flex-col px-16 justify-center gap-2">
-                <MessageBubble user={'The super smart AI'} message={'test'}></MessageBubble>
+                <MessageBubble user={'The super smart AI'} message={data.result}></MessageBubble>
                 <hr/>
-                <form action={savePlayerResponse}>
+                <form action={savePlayerResponseToRound}>
+                <input type="hidden" name="questionId" id="questionId" value={inserted.data[0].id} />
                     <div className={"flex gap-1"}>
                         <input autoFocus name={'userResponse'}
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
