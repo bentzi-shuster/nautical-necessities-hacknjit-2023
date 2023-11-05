@@ -7,8 +7,8 @@ import MessageBubble from "@/components/MessageBubble";
 import TimerComponent from "@/components/TimerComponent";
 import {savePlayerResponse} from "@/app/game/respond/action";
 import RedirectListener from "@/components/RedirectListener";
-import { savePlayerResponseToRound } from "../play/action";
-import { newPrompt } from "@/lib/newPrompt/newPrompt";
+import {savePlayerResponseToRound} from "../play/action";
+import {newPrompt} from "@/lib/newPrompt/newPrompt";
 
 export default async function GameRespond() {
     let respondTime = 30;
@@ -28,26 +28,24 @@ export default async function GameRespond() {
     //     .eq('id', playerGamesData.gameId)
     //     .single()
     // console.log(gameData)
-    
-    const supabase = createServerComponentClient({ cookies });
+
+    const supabase = createServerComponentClient({cookies});
     let userId = cookies().get('userId').value
-let {data: playerGamesData} = await supabase
-.from('PlayerGames')
-.select('gameId')
-.eq('userId', userId)
-.single()
+    let {data: playerGamesData} = await supabase
+        .from('PlayerGames')
+        .select('gameId')
+        .eq('userId', userId)
+        .single()
 
-let {data: PromptData} = await supabase
-.from('GamePrompt')
-.select('prompt')
-.eq('gameId', playerGamesData.gameId)
+    let {data: PromptData} = await supabase
+        .from('GamePrompt')
+        .select('prompt')
+        .eq('gameId', playerGamesData.gameId)
 
-let promptArray = PromptData.map((data) => data.prompt)
+    let promptArray = PromptData.map((data) => data.prompt)
 
-let data = await newPrompt([...promptArray],"");
-data=JSON.parse(data);
-
-
+    let data = await newPrompt([...promptArray], "");
+    data = JSON.parse(data);
 
 
 // let {data: gameData} = await supabase
@@ -55,13 +53,12 @@ data=JSON.parse(data);
 // .select('game_code')
 // .eq('id', playerGamesData.gameId)
 // .single()
-const inserted = await supabase
-  .from('GamePrompt')
-  .insert([
-    { prompt: data.result,gameId: playerGamesData.gameId, responderId:userId},
-  ])
-  .select()
-
+    const inserted = await supabase
+        .from('GamePrompt')
+        .insert([
+            {prompt: data.result, gameId: playerGamesData.gameId, responderId: userId},
+        ])
+        .select()
 
 
     return (
@@ -71,7 +68,7 @@ const inserted = await supabase
                 <MessageBubble user={'The super smart AI'} message={data.result}></MessageBubble>
                 <hr/>
                 <form action={savePlayerResponseToRound}>
-                <input type="hidden" name="questionId" id="questionId" value={inserted.data[0].id} />
+                    <input type="hidden" name="questionId" id="questionId" value={inserted.data[0].id}/>
                     <div className={"flex gap-1"}>
                         <input autoFocus name={'userResponse'}
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -82,7 +79,7 @@ const inserted = await supabase
                     </div>
                 </form>
             </div>
-            <TimerComponent timerLength={respondTime} side='game' route={`vote`}/>
+            <TimerComponent timerLength={respondTime} side='game' route={`vote`} gameId={playerGamesData.gameId}/>
             <RedirectListener gameId={playerGamesData.gameId}/>
         </>
     )
