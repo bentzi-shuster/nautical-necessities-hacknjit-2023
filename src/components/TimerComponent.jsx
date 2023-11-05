@@ -4,7 +4,7 @@ import {useRouter, usePathname} from "next/navigation";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
 import {setInterval} from "worker-timers";
 
-export default function TimerComponent({timerLength, route, side, gameId = null}) {
+export default function TimerComponent({timerLength, route, side, gameId}) {
     let [timerPercent, updateTimerPercent] = useState(0);
     let [alreadyRun, updateAlreadyRun] = useState(false);
 
@@ -17,17 +17,14 @@ export default function TimerComponent({timerLength, route, side, gameId = null}
         if (alreadyRun) return
         updateAlreadyRun(true)
 
-        if (side != 'host') {
+        if (side == 'host') {
             let splitPathName = pathName.split('/host/')[1]
             console.log('testtestestestestes', gameId, splitPathName)
-            let {
-                test,
-                error
-            } = supabase.from('Game').update({phase: splitPathName}).eq('id', gameId).select().single().then((test, error) => {
+            supabase.from('Game').update({phase: splitPathName}).eq('id', gameId).select().single().then((test, error) => {
+                console.log(gameId)
                 console.log('timer redirect to...', test)
-                router.push(`/game/${test.data.phase}`)
+                //router.push(`/game/${test.data.phase}`)
             });
-
         }
 
         const timerInterval = setInterval(() => {
