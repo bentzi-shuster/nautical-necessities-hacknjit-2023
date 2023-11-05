@@ -1,6 +1,8 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers'
+import {createServerComponentClient} from '@supabase/auth-helpers-nextjs';
+import {cookies} from 'next/headers'
 import AllUsers from "@/components/AllUsers";
+import {usePathname} from "next/navigation";
+import TimerComponent from "@/components/TimerComponent";
 
 export default async function Host() {
     //const cookieStore = cookies()
@@ -27,7 +29,8 @@ export default async function Host() {
 
     return (
         <>
-           <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
+            <AllUsers gameId={gameId} allPlayers={allPlayers}></AllUsers>
+            <TimerComponent timerLength={6} gameId={gameId} route={'vote'} side={'host'}/>
         </>
     )
 }

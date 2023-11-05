@@ -6,6 +6,7 @@ import {cookies} from 'next/headers'
 import MessageBubble from "@/components/MessageBubble";
 import TimerComponent from "@/components/TimerComponent";
 import {savePlayerResponse} from "@/app/game/respond/action";
+import RedirectListener from "@/components/RedirectListener";
 
 export default async function GameRespond() {
     let respondTime = 6;
@@ -43,7 +44,8 @@ export default async function GameRespond() {
                     </div>  
                 </form>
             </div>
-            <TimerComponent timerLength={respondTime} route={`/game/vote`}/>
+            <TimerComponent timerLength={respondTime} side='game' route={`vote`}/>
+            <RedirectListener gameId={playerGamesData.gameId}/>
         </>
     )
 }
