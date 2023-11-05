@@ -66,13 +66,14 @@ export default function AllUsers({gameId, allPlayers}) {
                 <div>
                     <div className="stat-desc text-3xl">Game Code</div>
                     <div className="stat-value">{gameCode}</div>
+                    <div className="flex flex-row flex-wrap justify-center gap-4">
                     {
                         allUsers.map((data, index) => {
                             return (
                                 <PlayerCard key={index} name={data.name} width={100} height={100} />
                             )
                         })
-                    }
+                    }</div>
                 </div>
             </div>
         </>
