@@ -12,17 +12,16 @@ export default function RedirectListener({gameId}) {
 
     useEffect(() => {
         if (pathName.includes('host')) return
-        pathName = pathName.split("/game/")[1]
 
         function handleStatus(status) {
-            if (status === pathName) return;
+            if (status === pathName.split("/game/")[1]) return;
             switch (status) {
                 case "vote":
                 case "respond":
                     router.push('/game/' + status)
                     break;
                 default:
-                    router.push('/game/waiting');
+                    break;
             }
         }
 
@@ -39,7 +38,8 @@ export default function RedirectListener({gameId}) {
 
         async function periodicCheck() {
             let res = await supabase.from('Game').select('phase').eq('id', gameId).limit(1).single();
-            console.log('res', res)
+            console.log('res', res.data.phase)
+            handleStatus(res.data.phase)
         }
 
         setInterval(async () => {
